@@ -1,0 +1,185 @@
+
+.form-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+    margin-bottom:0;
+}
+.form-help-text > ul{
+    margin-bottom:0;
+}
+
+.form-content {
+    width: 90vw;
+    max-width: 970px;
+}
+.form-title {
+    width: 90vw;
+    max-width: 970px;
+}
+
+.content {
+    margin:5px;
+}
+
+.Roster {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid blue; */
+    padding: 3px;
+}
+.title.future {
+    border-bottom: 2px solid blue;
+}
+.title.future > div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.title.thisPaycycle {
+    border-bottom: 2px solid blue;
+}
+.title.recent{
+    border-bottom: 2px solid green;
+}
+.title.customPaycycle{
+    border-bottom: 2px solid green;
+}
+.title.overtime-print {
+    border-bottom: 2px solid red;
+}
+.roster_content {
+    display: flex;
+    flex-direction: column;
+}
+.content-block {
+    padding-top: 10px;
+    width: 90vw;
+    max-width: 970px;
+}
+.currentOvertimeRequests {
+    font-size: 10pt;
+    line-height: 1;
+}
+.RosterRow {
+    display: flex;
+    flex-direction: row;
+    padding: 6px 0px;
+}
+.to_left {
+    border-right: 1px solid grey;
+
+    display: flex;
+    align-items:flex-end;
+    padding-right: 3px;
+    width: 110px;
+    justify-content: end;
+}
+.to_left > .day {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.day > span {
+    font-size: 23pt;
+    display: inline-block;;
+    line-height: 1;
+    vertical-align: bottom;
+}
+
+.to_left > .date {
+    padding-left: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.to_right {
+    padding-left: 3px;
+    display: flex;
+    flex-direction: column;
+}
+.to_right.rosterAndOvertime {
+    padding-left: 3px;
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+}
+.rosterOvertimeRow {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    padding: 6px 0px;
+}
+span {
+    display: inline-block;;
+    line-height: 1;
+    vertical-align: bottom;
+}
+
+.secondRow {
+    color: grey;
+}
+.secondRow > b {
+    color: black;
+}
+.form-text-div {
+    width: 80vw;
+    max-width: 970px;
+    margin-top: -5px;
+}
+.button-group > .btn {
+    height: 100%;
+}
+
+.btn-small.btn {
+    height: 31px;
+    padding: 0 0.1rem;
+}
+.row.row-no-margin {
+    margin-right: 0;
+    margin-left: 0;
+}
+.firstColumn {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.muted {
+    color: grey;
+}
+.firstrow{
+    padding-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+}
+.inline-btn {
+    display: inline;
+    border: 0;
+    color: #007bff;
+    border-radius: 3px;
+    background-color: white;
+}
+#createCalendar {
+    display: inline;
+    border: 0;
+    color: #007bff;
+    border-radius: 3px;
+    background-color: white;
+}
+.deleteOvertimeForm{
+    display: inline;
+}

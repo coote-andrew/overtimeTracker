@@ -1,0 +1,57 @@
+{% extends './template.html' %}
+
+{% block title%}Homepage{% endblock  %}
+
+{% block content %}
+    <div class="content-wrapper">
+    <div class="content-block">
+        <h4>Overtime print options</h4>
+        <p>This page is designed to let you chose what overtime printout you would like.</p>
+        <p>Please pick from the following options.</p>
+        <div class="title thisPaycycle">
+            <h4>Print overtime for this most recent paycycle</h4>
+        </div>
+            <a href="{% url 'overtime:create_this_paycycle'%}"><p>Click this text to create your overtime form for this paycycle</p></a>
+    </div>
+
+    <div class="form-wrapper">
+        <div class="form-title title customPaycycle"><h4>Custom Overtime Paycycle</h4></div>
+        <div class="form-content">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+
+                    {{field}}
+                    {% if field.help_text %}
+                        <div class="form-text-div">
+                            <small class="form-text text-muted col-sm-12 offset-sm-2 form-help-text">{{ field.help_text }}</small>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+               
+            <button class="btn btn-primary" type="submit">Create</button>
+        </form>
+        </div>
+    </div>
+    <div class="overtimeSheets content-block">
+        <div class="title overtime-print"><h4>Recently printed overtime sheets</h4></div>
+        {% if recent_overtime_sheets %}
+        <ol>
+            {% for row in recent_overtime_sheets %}
+            <li><a href="{% url 'overtime:printView' row.pk %}">{{ row.startDate }} - {{ row.endingDate }}</a></li>
+            {% endfor %}
+        </ol>
+        {% else %}
+            <p>No rows are available.</p>
+        {% endif %}
+    <div>
+
+
+    
+    </div>
+{% endblock%}

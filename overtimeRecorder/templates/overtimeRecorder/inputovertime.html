@@ -1,0 +1,40 @@
+{% extends './template.html' %}
+
+{% block title%}Profile{% endblock  %}
+
+{% block content %}
+    {% load static %}
+    <div class="form-wrapper">
+        <div class="form-title"><h3>Input Overtime Form</h3></div>
+        <div class="form-content">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in overtimeForm %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+
+                    {{field}}
+                    
+                    {% if field.id_for_label == "id_finishTime" and bOra %}
+
+                    <div class="btn-group-sm col-sm-3 button-group" role="group" aria-label="times">
+                        <button type='button' onclick="addTime(0,30)" class='btn btn-outline-secondary'>30 mins</button>
+                        <button type='button' onclick="addTime(1,0)" class='btn btn-outline-secondary'>1 hour</button>
+                        <button type='button' onclick="addTime(1,30)" class='btn btn-outline-secondary'>90 mins</button>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+                
+            <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+        </div>
+    </div>
+
+{% endblock%}
+
+{% block scripts %}
+    <script src="{% static "overtimeRecorder/overtime.js"%}?{% now "U" %}"></script>
+{% endblock %}

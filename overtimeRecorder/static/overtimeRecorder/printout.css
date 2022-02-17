@@ -1,0 +1,253 @@
+body {
+    margin-top: 0.5cm;
+    margin-left: 0.6cm;
+    margin-right: 0.6cm;
+    margin-bottom: 1.1cm;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+
+@page {
+    margin: 0;
+}
+div {
+    box-sizing: border-box;
+    border: 0.5px solid black;
+}
+
+#printout {
+    border: 0;
+    width: 28cm;
+    height: 19cm;
+}
+
+.header {
+    display: flex;
+    border: 0;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+.header > *{
+    flex-grow: 1;
+    height: 1.3cm;
+    display:flex;
+    align-items: center;
+    padding: 0.2cm;
+}
+
+#DiT {
+    font-size: 16px;
+}
+#MH {
+    font-size: 22px;
+    border-left: 0;
+}
+
+.generalText {
+    height: 1.7cm;
+    display: flex;
+    align-items: center;
+    padding: 0.2cm;
+    border: 0;
+}
+
+#hiddenFormatter {
+    border: 0;
+
+}
+#hiddenFormatter >p {
+    margin: 1px;
+}
+
+.employeeDetails {
+    display: grid;
+    grid-template-columns: 4.7cm 5.3cm 4.4cm 2cm 2.7cm 4cm 2cm 1fr;
+    border: 0;
+    border-top:0.5px solid black;
+    border-right: 0.5px solid black;
+}
+.employeeDetails > *{
+    height: 0.9cm;
+    border: 0;
+    border-bottom: 0.5px solid black;
+    border-left: 0.5px solid black;
+    /* outline: 1px solid black; */
+    box-sizing: content-box;
+    padding-left: 0.2cm;
+    padding-top: 0.05cm;
+}
+
+
+.clinicalNeedAndPayrollRef {
+    display: flex;
+    padding-top: 0.4cm;
+    border: 0;
+    padding-right: 1.3cm;
+    justify-content: space-between;
+}
+#clinicalNeed {
+    padding-left: 0.2cm;
+    width: 18.6cm;
+}
+
+#clinicalNeeds {
+    border: 0;
+    display: grid;
+    padding-left: 0.6cm;
+    grid-template-columns: 7.3cm 5.8cm 1fr;
+}
+#clinicalNeeds > * {
+    border: 0;
+    padding-top: 0.1cm;
+}
+#MDMPrep {
+    grid-column-start: 3;
+    grid-row-start: 3;
+}
+#pleaseWriteURN {
+    font-size: 10px;
+}
+
+#PayrollRefTable {
+    display:flex;
+    width: 7.9cm;
+    border: 0;
+}
+#payrollRef {
+    border-right: 0;
+    height: calc(1cm + 1px);
+    width: 1.9cm;
+    text-align: right;
+    padding-right: 0.1cm;
+    padding-top: 0.05cm;
+}
+
+#table {
+    display:grid;
+    width: 6cm;
+    grid-template-columns: repeat(5, 1fr);
+    border:0;
+    border-top:0.5px solid black;
+    border-right: 0.5px solid black;
+}
+#table > * {
+    border: 0;
+    border-bottom: 0.5px solid black;
+    border-left: 0.5px solid black;
+    text-align: center;
+    height: 0.5cm;
+    padding-top: 0.05cm;
+}
+
+#pleaseinclude {
+    border: 0;
+    height: 1.3cm;
+    display: flex;
+    padding-left: 0.2cm;
+    align-items: center;
+    font-style: italic;
+    font-size: 12px;
+}
+#ottablediv {
+    width: 100%;
+    border: 0;
+}
+
+#overtimeTable {
+    table-layout: fixed;
+    width: 27.6cm;
+    border: 0;
+    /* border: 1px solid black; */
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 0.5px solid black;
+    text-align: left;
+    text-decoration: none;
+    font-style: normal;
+    vertical-align: top;
+    padding-top: 0.05cm;
+    padding-left: 0.1cm;
+    font-size: 12px;
+    box-sizing: border-box;
+    
+}
+
+td > p {
+    margin-bottom: 0;
+}
+.date {
+    width: 2cm;
+}
+
+.day {
+    width: 2cm;
+}
+.reason {
+    width: 3.8cm;
+}
+
+.ptURN {
+    width: 2.4cm;
+}
+.st {
+    width: 2.1cm;
+}
+.ft {
+    width: 2.1cm;
+}
+.hd {
+    width: 2.7cm;
+}
+.th {
+    width: 2cm;
+}
+.pre_ap {
+    width: 4.4cm;
+}
+.sign {
+    width: 4.6cm;
+}
+
+.pleaseNote {
+    margin-top: 0;
+    font-size: 10px;
+}
+.filledCell, #fortnightTotal2 {
+    height:0.6cm;
+    font-size: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+#hiddenCells {
+    border: 0;
+}
+
+.pagebreak {
+    height: 30px;
+    border:0;
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+        
+    }
+    .pagebreak { 
+        page-break-before: always; 
+    } /* page-break-after works, as well */
+}
+.no-print {
+    position: absolute;
+    background-color: black;
+    padding: 5px;
+}
+.no-print > a {
+    font-size: 30px;
+    color: white;
+}

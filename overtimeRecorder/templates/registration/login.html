@@ -1,0 +1,41 @@
+
+{% extends '../overtimeRecorder/template.html' %}
+
+{% block title%}Log In{% endblock  %}
+
+{% block content %}
+
+    <div class="form-wrapper">
+        <div class="form-title"><h3>Log-In page</h3></div>
+        <div class="form-content">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">
+                        {% if field.id_for_label == 'id_username' %}    
+                            Email
+                        {% else %}
+                            {{ field.label }}
+                        {% endif %}
+                    </label>
+                    {% comment %} {{field}}  {% endcomment %}
+                    
+                    {{field}}
+                    
+                    {% if field.help_text %}
+                    <div class="form-text-div">
+                        <small class="form-text text-muted col-sm-12 offset-sm-2 form-help-text">{{ field.help_text }}</small>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+                           
+            <button class="btn btn-primary" type="submit">Log in</button>
+        </form>
+        </div>
+    </div>
+
+
+{% endblock%}

@@ -1,0 +1,13 @@
+venv
+*.pyc
+staticfiles
+.env
+db.sqlite3
+getting-started/*
+env/
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media

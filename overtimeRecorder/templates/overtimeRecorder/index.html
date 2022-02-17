@@ -1,0 +1,127 @@
+{% extends './template.html' %}
+
+{% block title%}Index{% endblock  %}
+
+{% block content %}
+    {% load static %}
+    <div class="content-wrapper">
+        <div class="Roster future content-block">
+            <div class="title future">
+                <div>
+                <div><h4>Future Roster</h4></div>
+                <div>
+                    <button id="createCalendar">Add the next 7 days to my calendar</button>
+                </div>
+            </div>
+            </div>
+            <div class"roster_content">
+                {% if future_roster %}
+                
+                    {% for row in future_roster %}
+                        <div class="future RosterRow">
+                            <div class="to_left">
+                                <div class="day">
+                                    <span>{{row.startDateTime|date:"D"}}</span>
+                                </div>
+                                <div class="date">
+                                    <span class="date">{{row.startDateTime|date:"dS"}}</span>
+                                    <span class="month">{{row.startDateTime|date:"N"}}</span>
+                                </div>
+                            </div>
+                            <div class='to_right'>
+                                <span class="firstRow">{{row.startDateTime|date:"g:i a"}} - {{row.endDateTime|date:'g:i a (d/m)'}}  <a href="{% url 'overtime:editRosterItem' row.pk %}">edit</a></span>
+                                <span class="secondRow">{% if row.oncallTF %}<strong>On-call</strong> {% endif %}{{row.role}}: {{row.job}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                {% else %}
+                    <p>No rows are available.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="Roster recent content-block">
+            <div class="title recent"><h4>Recent Roster and Overtime</h4></div>
+            <div class"roster_content">
+                {% if recent_roster_and_overtime_View %}
+                    
+                    {% for row in recent_roster_and_overtime_View %}
+                        <div class="rosterOvertimeRow" id="{{row.0|date:"Ymd"}}">
+                            <div class="to_left">
+                                <div class="day">
+                                    <span>{{row.0|date:"D"}}</span>
+                                </div>
+                                <div class="date">
+                                    <span class="date">{{row.0|date:"dS"}}</span>
+                                    <span class="month">{{row.0|date:"N"}}</span>
+                                </div>
+                            </div>
+                            <div class='to_right rosterAndOvertime'>
+                                <div class="firstColumn">
+                                    {% if row.1 %}
+                                        {% for item in row.1%}    
+                                            <span class="firstRow">{{item.startDateTime|date:"g:i a"}} - {{item.endDateTime|date:'g:i a (d/m)'}}  <a href="{% url 'overtime:overtimeReqWDateAndTime' date=item.endDateTime|date:'d-m-Y' time=item.endDateTime|date:'G:i' %}">full overtime form</a></span>
+                                            <span class="secondRow">{% if item.oncallTF %}<strong>On-call</strong> {% endif %}{{item.role}}: {{item.job}}</span>
+                                        {% endfor %}
+                                    {% else %}<span>No work <a href="{% url 'overtime:overtimeReqWDate' date=row.0|date:'d-m-Y'%}">overtime form...</a></span>{% endif %}
+                                </div>
+                                <div class="secondColumn">
+                                    <div class="firstrow">
+                                        {% if row.2.0 %}
+                                            {% for item in row.2.0%}
+                                                <span class="currentOvertimeRequests" id="{{item.0.id}}">
+                                                    {{item.0.startTime}}-{{item.0.finishTime}} ({{item.0.get_reason_display}}{%if item.0.patientURN%}:#{{item.0.patientURN}}{% endif %})
+                                                        <a href="{% url 'overtime:requestRow' item.0.pk %}">edit</a>
+                                                        <form class="deleteOvertimeForm">
+                                                            {% csrf_token%}
+                                                            {{item.1}}
+                                                            <button class="inline-btn" type="submit">delete</button>
+                                                        </form>
+                                                </span>
+                                            {% endfor%}
+                                        {% else %}<span class="currentOvertimeRequests muted">No overtime recorded</span>{% endif %}
+
+                                    </div>
+                                    <div class="secondrow">
+                                        {% if row.2.1 %}
+                                        <form class="overtimeForm">
+                                            {% csrf_token %}
+                                            <div class="row row-no-margin">
+                                                {% for field in row.2.1%}
+                                                    {{field}}
+                                                {% endfor %}
+                                                <button class="btn btn-primary btn-small col-1" type="submit">Save</button>
+                                            </div> 
+                                        </form> 
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            
+                {% else %}
+                    <p>No rows are available.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+
+
+        <div class="overtimeSheets content-block">
+            <div class="title overtime-print"><h4>Recently printed overtime sheets</h4></div>
+            {% if recent_overtime_sheets %}
+            <ol>
+                {% for row in recent_overtime_sheets %}
+                <li><a href="{% url 'overtime:printView' row.pk %}">{{ row.startDate }} - {{ row.endingDate }}</a></li>
+                {% endfor %}
+            </ol>
+            {% else %}
+                <p>No rows are available.</p>
+            {% endif %}
+        <div>
+    </div>
+
+    <script src="{% static "overtimeRecorder/index.js"%}?{% now "U" %}">
+{% endblock%}

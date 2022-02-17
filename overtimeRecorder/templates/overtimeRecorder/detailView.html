@@ -1,0 +1,45 @@
+{% extends './template.html' %}
+
+{% block title%}Detailed View{% endblock  %}
+
+{% block content %}
+    <div class="form-wrapper">
+        <div class="form-title"><h3>Edit Overtime</h3></div>
+        <div class="form-content">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+
+                    {{field}}
+                    {% if field.help_text %}
+                        <div class="form-text-div">
+                            <small class="form-text text-muted col-sm-12 offset-sm-2 form-help-text">{{ field.help_text }}</small>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+    </div>
+        </div>
+{% comment %}     
+    <form action="{% url 'overtime:changeDetails' row.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>overtime request</h1></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            
+            <input type="text" name="patientURN" id="patientURN" value="{{ row.patientURN }}">
+            <label for="patientURN">patientURN</label><br>
+            
+        </fieldset>
+        <input type="submit" value="Save">
+        </form> {% endcomment %}
+
+{% endblock %}
+
+

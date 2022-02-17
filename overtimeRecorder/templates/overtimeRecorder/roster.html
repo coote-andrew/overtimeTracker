@@ -1,0 +1,46 @@
+{% extends './template.html' %}
+
+{% block title%}Roster Input{% endblock  %}
+
+{% block content %}
+{% comment %} 
+    <h3>Go to roster on and copy the whole page and past content in below form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ rosterForm.as_p }}
+        <button type="submit"></button>
+    </form> {% endcomment %}
+
+    <div class="form-wrapper">
+        <div class="form-title"><h3>Roster Input</h3></div>
+        <div class="form-content">
+            <p>Go to Roster-on, copy the whole page, and past content in the text box below</p>
+        <form method="post" class="form-horizontal">
+            {% csrf_token %}
+            {% for field in rosterForm %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+
+                    {{field}}
+                    
+                    {% if field.id_for_label == "id_finishTime" %}
+
+                    <div class="btn-group-sm col-sm-3" role="group" aria-label="times">
+                        <button type='button' onclick="addTime(0,30)" class='btn btn-outline-secondary'>30 mins</button>
+                        <button type='button' onclick="addTime(1,0)" class='btn btn-outline-secondary'>1 hour</button>
+                        <button type='button' onclick="addTime(1,30)" class='btn btn-outline-secondary'>90 mins</button>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+                
+            <button class="btn btn-primary" type="submit">Add to roster </button>
+            <p><em>Note: this will remove previous roster items with the same dates as above</em></p>
+        </form>
+        </div>
+    </div>
+
+
+{% endblock%}

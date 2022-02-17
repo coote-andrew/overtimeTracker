@@ -1,0 +1,57 @@
+{% extends './template.html' %}
+
+{% block title%}Profile{% endblock  %}
+
+{% block content %}
+    
+    <div class="form-wrapper">
+        <div class="form-title"><h3>Sign up form</h3></div>
+        <div class="form-content">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in user_form %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+                    
+                    {{field}}
+                    
+                    {% if field.help_text %}
+                    <div class="form-text-div">
+                        <small class="form-text text-muted col-sm-12 offset-sm-2 form-help-text">{{ field.help_text }}</small>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% for field in profile_form %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+
+                    {{field}}
+                    {% if field.help_text %}
+                    <div class="form-text-div">
+                        <small class="form-text text-muted col-sm-12 offset-sm-2 form-help-text">{{ field.help_text }}</small>
+                    </div>
+                    {% endif %}
+                    {% if field.id_for_label == "id_payCycle" %}
+    
+                        <div class="form-text-div">
+                            <small class="form-text text-muted col-sm-12 offset-sm-2 form-help-text">Chose your correct cycle - a few recent and future paycles below</small>
+                            <small class="form-text text-muted col-sm-12 offset-sm-2" ><b>A:</b>{% for date in A_date_array %} {{date|date:'dS N |'}}{% endfor %}</small>
+                            <small class="form-text text-muted col-sm-12 offset-sm-2"><b>B:</b>{% for date in B_date_array %} {{date|date:'dS N |'}}{% endfor %}</small>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <small>Please note the following: this is not endorsed or supported by the hospital. All effort has been made to keep this data private, but you are recording personal information on this website. Many fields are optional and only input the information on the final printed overtime sheet, if you'd prefer to do it by hand and not record it on this website then all functionality will still work.</small>
+            <small>And of course please consider NOT using the same password for this website as your hospital log in</small>
+            <br>
+            <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+        </div>
+    </div>
+
+{% endblock%}

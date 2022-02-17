@@ -1,0 +1,27 @@
+{% extends './template.html' %}
+
+{% block title%}edit roster item{% endblock  %}
+
+{% block content %}
+
+    <div class="form-wrapper">
+        <div class="form-content">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in rosterIndForm %}
+                <div class="form-group row">
+                    {{field.errors}}
+                    <label class="col-sm-2 col-form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    {% comment %} {{field}}  {% endcomment %}
+
+                    {{field}}
+                    
+                </div>
+            {% endfor %}
+                
+            <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+        </div>
+    </div>
+
+{% endblock%}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title%}{% endblock%} - printout</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "overtimeRecorder/style.css"%}?{% now "U" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "overtimeRecorder/printout.css"%}?{% now "U" %}">
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {% endcomment %}
+
+  </head>
+  <body>
+    <div class="no-print"><a href="{% url 'overtime:index' %}">Back</a></div>
+    {% for page in overtime_printout %}
+        <div id="printout">
+            <div class="header">
+                <div id="DiT">
+                    Doctors in Training (DiT) - Out of Hours Claim Form (Unrostered Overtime)
+                </div>
+                <div id="MH">
+                    <b>MELBOURNE HEALTH</b>
+                </div>
+            </div>
+            <div class="generalText">
+                <div id="hiddenFormatter"><p>Overtime must be due to a demonstrable clinical need that could not be met by other means.
+                <p>This form is to be completed by the DiT for hours worked in addition to their rostered hours where tasks cannot reasonably be handed over.
+                </div>
+            </div>
+            <div class="employeeDetails">
+                <div id="Name1">Employee Name:</div>
+                <div id="Name2">{{ name }}</div>
+                <div id="Number1">Employee Number:</div>
+                <div id="Number2">{{ Number }}</div>
+                <div id="Sign1">Employee Signature:</div>
+                <div id="Sign2"></div>
+                <div id="date1">Date:</div>
+                <div id="date2">{{ date }}</div>
+                <div id="Department1">Department:</div>
+                <div id="Department2">{{Department}}</div>
+                <div id="Classification1">Classification: (Intern/HMO/Registrar)</div>
+                <div id="Classification2">{{Classification}}</div>
+                <div id="PayFortnight1">Pay Fortnight Ending:</div>
+                <div id="PayFortnight2">{{PayFortnight}}</div>
+                <div id="PayRun1">Payrun: <br>(N or H)</div>
+                <div id="PayRun2"></div>
+            </div>
+            <div class ="clinicalNeedAndPayrollRef">
+                <div id="clinicalNeed">
+                    Clinical need includes:
+                    <div id="clinicalNeeds">
+                        <div>
+                            1. Direct Patient Care*
+                        </div>
+                        <div>
+                            2. Ward Round
+                        </div>
+                        <div>
+                            3. Discharge Summaries*
+                        </div>
+                        <div>
+                            1. Theatre*
+                        </div>
+                        <div>
+                            2. Delayed/extended handover
+                        </div>
+                        <div>
+                            3. Patient Admin*
+                        </div>
+                        <div id="MDMPrep">
+                            4. MDM Preparation
+                        </div>
+                        <div id="pleaseWriteURN">
+                            * Please write the patient UR number
+                        </div>
+                    </div>
+                </div>
+                <div id="PayrollRefTable">
+                    <div id="payrollRef">
+                        Payroll <br>Reference
+                    </div>
+                    <div id="table">
+                        <div>
+                            Rate
+                        </div>
+                        <div>
+                            OT 1
+                        </div>
+                        <div>
+                            OT 2
+                        </div>
+                        <div>
+                            OT 3
+                        </div>
+                        <div>
+                            OT 4
+                        </div>
+                        <div>
+                            150%
+                        </div>
+                        <div>
+                            1321
+                        </div>
+                        <div>
+                            1322
+                        </div>
+                        <div>
+                            1323
+                        </div>
+                        <div>
+                            1324
+                        </div>
+                        <div>
+                            200%
+                        </div>
+                        <div>
+                            1331
+                        </div>
+                        <div>
+                            1332
+                        </div>
+                        <div>
+                            1333
+                        </div>
+                        <div>
+                            1334
+                        </div>
+                        <div>
+                            250%
+                        </div>
+                        <div>
+                            1341
+                        </div>
+                        <div>
+                            1342
+                        </div>
+                        <div>
+                            1343
+                        </div>
+                        <div>
+                            1344
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pleaseinclude">
+                Please include only one clinical need per line
+            </div>
+            <div id="ottablediv">
+                <table id="overtimeTable">
+                    <tr>
+                        <td class="date">Date</th>
+                        <td class="day">Day</th>
+                        <td class="reason">Reason (e.g. 3)<p class="pleaseNote">Please note primary reason</p></th>
+                        <td class="ptURN">Patient UR #</th>
+                        <td class="st">Start Time</th>
+                        <td class="ft">Finish Time</th>
+                        <td class="hd">Higher Duties<p class="pleaseNote">(Y/N) (See Procedure)</p> </th>
+                        <td class="th">Total Hours</th>
+                        <td class="pre_ap">NUM/Senior Registrar/Consultant Pre-Approval (not mandatory)</th>
+                        <td class="sign">Head of Unit/Director Clinical Services/Supervisor of Training/Ward Consultant Signature</th>
+                    </tr>
+                    {% for row in page %}
+                        <tr>
+                        {% for cell in row %}
+                            <td class="filledCell" id="overtime_printout">{{cell}}</td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2" id="RosteredFHours1">Rostered Fortnightly hours (optional):</td>
+                        <td id="RosteredFHours2"></td>
+                        <td colspan="3" id="hiddenCells"></td>
+                        <td id="fortnightTotal1">Fortnightly Total</td>
+                        <td id="fortnightTotal2">{{stringFortnightlyTotal}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="pleaseinclude">
+                Please submit the completed form to mhpaydata@mh.org.au. For further clarification on approval process contact RMH-MWU@mh.org.au.
+            </div>
+
+        </div>
+        {% if not forloop.last %}
+            <div class="pagebreak"> </div>
+        {% endif %}
+    {% endfor %}
+    {% comment %} <script src="{% static "overtimeRecorder/printout.css"%}?{% now "U" %}"></script> {% endcomment %}
+    {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> {% endcomment %}
+  </body>
+</html>
